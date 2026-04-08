@@ -2,9 +2,7 @@ if(CMAKE_VERSION VERSION_LESS "3.11")
     include(ExternalProject)
     ExternalProject_Add(
         SFML
-        GIT_REPOSITORY https://github.com/SFML/SFML.git
-        GIT_TAG        2.6.1
-        GIT_SHALLOW    ON
+        URL https://github.com/SFML/SFML/archive/refs/tags/2.6.1.tar.gz
         CMAKE_ARGS
             -DBUILD_SHARED_LIBS=OFF
             -DSFML_BUILD_AUDIO=OFF

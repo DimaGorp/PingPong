@@ -55,14 +55,14 @@ jobs:
                   cmake --build build --config Release
             - name: Upload artifacts (Linux)
               if: runner.os == 'Linux'
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: build-${{ matrix.name }}
                 path: ${{ github.workspace }}/build
 
             - name: Upload artifacts (Windows)
               if: runner.os == 'Windows'
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: build-${{ matrix.name }}
                 path: build/Release

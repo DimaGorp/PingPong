@@ -4,6 +4,7 @@ if(CMAKE_VERSION VERSION_LESS "3.11")
         SFML
         GIT_REPOSITORY https://github.com/SFML/SFML.git
         GIT_TAG        2.6.1
+        GIT_SHALLOW    ON
         CMAKE_ARGS
             -DBUILD_SHARED_LIBS=OFF
             -DSFML_BUILD_AUDIO=OFF

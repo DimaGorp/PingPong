@@ -29,7 +29,6 @@ jobs:
                       name: ubuntu-1804
 
         runs-on: ${{ matrix.os }}
-        container: ${{ matrix.container }}
         name: Unit Tests (${{ matrix.name }})
         steps:
             - name: Download artifacts
@@ -47,8 +46,8 @@ jobs:
             - name: Run unit tests (Linux)
               if: runner.os == 'Linux'
               run: |
-                docker run --rm \
-                    -v ${{ github.workspace }}:${{ github.workspace }} \
-                    -w ${{ github.workspace }} \
+                  docker run --rm \
+                    -v ${{ github.workspace }}/build:/build \
+                    -w /build \
                     ${{ matrix.container }} \
-                    bash -c "cd build && ctest --output-on-failure"
+                    bash -c "ctest --output-on-failure"

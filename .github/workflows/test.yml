@@ -6,6 +6,7 @@ on:
 jobs:
     unit_tests:
         strategy:
+            fail-fast: false
             matrix:
                 include:
                     # Windows 32-bit

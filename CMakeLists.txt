@@ -13,3 +13,8 @@ if(CMAKE_VERSION VERSION_LESS "3.20")
 else()
     target_compile_features(PingPong PRIVATE cxx_std_23)
 endif()
+
+#Download dependencies
+add_subdirectory(ext)
+
+

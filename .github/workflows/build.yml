@@ -41,7 +41,7 @@ jobs:
                     ${{ matrix.container }} \
                     bash -c "
                     apt-get update -qq &&
-                    apt-get install -y build-essential cmake &&
+                    apt-get install -y build-essential cmake git &&
                     cmake --version &&
                     mkdir -p build &&
                     cd build &&

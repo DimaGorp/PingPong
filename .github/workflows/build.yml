@@ -5,6 +5,7 @@ on:
 jobs:
     build:
         strategy:
+            fail-fast: false
             matrix:
                 include:
                     # Windows 32-bit
@@ -34,18 +35,37 @@ jobs:
 
             - name: Build (Linux)
               if: runner.os == 'Linux'
-              uses: addnab/docker-run-action@v3
-              with:
-                  image: ${{ matrix.container }}
-                  options: -v ${{ github.workspace }}:/workspace
-                  run: |
-                      apt-get update
-                      apt-get install -y build-essential cmake
-                      cd /workspace
-                      cmake -B build
-                      cmake --build build
+              run: |
+                docker run --rm \
+                    -v ${{ github.workspace }}:${{ github.workspace }} \
+                    -w ${{ github.workspace }} \
+                    ${{ matrix.container }} \
+                    bash -c "
+                    apt-get update -qq &&
+                    apt-get install -y build-essential cmake git \
+                    libx11-dev libxrandr-dev libxcursor-dev \
+                    libgl1-mesa-dev libudev-dev libfreetype6-dev &&
+                    cmake --version &&
+                    mkdir -p build &&
+                    cd build &&
+                    cmake .. &&
+                    cmake --build .
+                    "
             - name: Build (Windows)
               if: runner.os == 'Windows'
               run: |
                   cmake -B build -A ${{ matrix.arch }}
                   cmake --build build --config Release
+            - name: Upload artifacts (Linux)
+              if: runner.os == 'Linux'
+              uses: actions/upload-artifact@v4
+              with:
+                name: build-${{ matrix.name }}
+                path: ${{ github.workspace }}/build
+
+            - name: Upload artifacts (Windows)
+              if: runner.os == 'Windows'
+              uses: actions/upload-artifact@v4
+              with:
+                name: build-${{ matrix.name }}
+                path: build/Release

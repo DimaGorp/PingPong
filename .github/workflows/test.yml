@@ -6,6 +6,7 @@ on:
 jobs:
     unit_tests:
         strategy:
+            fail-fast: false
             matrix:
                 include:
                     # Windows 32-bit
@@ -29,20 +30,29 @@ jobs:
                       name: ubuntu-1804
 
         runs-on: ${{ matrix.os }}
-        container: ${{ matrix.container }}
         name: Unit Tests (${{ matrix.name }})
         steps:
-            - uses: actions/checkout@v3
+            - name: Download artifacts
+              uses: actions/download-artifact@v4
+              with:
+                name: build-${{ matrix.name }}
+                path: build
 
             - name: Run unit tests (Windows)
               if: runner.os == 'Windows'
               run: |
-                  cd build/Release
-                  ctest --output-on-failure
+                cd build
+                ctest --output-on-failure -C Release
 
             - name: Run unit tests (Linux)
               if: runner.os == 'Linux'
               run: |
-                  cd build
-                  ctest --output-on-failure
-    
+                  docker run --rm \
+                    -v ${{ github.workspace }}/build:/build \
+                    -w /build \
+                    ${{ matrix.container }} \
+                    bash -c "
+                        apt-get update -qq &&
+                        apt-get install -y cmake &&
+                        ctest --output-on-failure
+                    "

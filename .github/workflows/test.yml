@@ -50,4 +50,8 @@ jobs:
                     -v ${{ github.workspace }}/build:/build \
                     -w /build \
                     ${{ matrix.container }} \
-                    bash -c "ctest --output-on-failure"
+                    bash -c "
+                        apt-get update -qq &&
+                        apt-get install -y cmake &&
+                        ctest --output-on-failure
+                    "

@@ -33,7 +33,7 @@ jobs:
         name: Unit Tests (${{ matrix.name }})
         steps:
             - name: Download artifacts
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
                 name: build-${{ matrix.name }}
                 path: build

@@ -36,14 +36,13 @@ jobs:
               if: runner.os == 'Linux'
               uses: addnab/docker-run-action@v3
               with:
-                  image: ${{ matrix.container }}
-                  options: -v ${{ github.workspace }}:/workspace
-                  run: |
-                      apt-get update
-                      apt-get install -y build-essential cmake
-                      cd /workspace
-                      cmake -B build
-                      cmake --build build
+                image: ${{ matrix.container }}
+                options: -v ${{ github.workspace }}:/workspace
+                run: |
+                    apt-get update
+                    apt-get install -y build-essential cmake
+                    cmake -S /workspace -B /workspace/build
+                    cmake --build /workspace/build
             - name: Build (Windows)
               if: runner.os == 'Windows'
               run: |

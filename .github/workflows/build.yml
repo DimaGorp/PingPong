@@ -36,13 +36,14 @@ jobs:
               if: runner.os == 'Linux'
               run: |
                 docker run --rm \
-                    -v ${{ github.workspace }}:/workspace \
+                    -v ${{ github.workspace }}:${{ github.workspace }} \
+                    -w ${{ github.workspace }} \
                     ${{ matrix.container }} \
                     bash -c "
                     apt-get update &&
                     apt-get install -y build-essential cmake &&
-                    cmake -S /workspace -B /workspace/build &&
-                    cmake --build /workspace/build
+                    cmake -S . -B build &&
+                    cmake --build build
                     "
             - name: Build (Windows)
               if: runner.os == 'Windows'

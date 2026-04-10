@@ -1,14 +1,12 @@
 #pragma once
+#include <Instance/Instance.hpp>
+#include <SFML/Graphics.hpp>
 
-class Window;
-class GameInstance {
-    private:
-        static GameInstance* s_instance;
-        Window* m_window;
-        GameInstance();
-        void runGame();
-    public:
-        GameInstance(const GameInstance&) = delete;
-        GameInstance& operator=(const GameInstance&) = delete;
-        static GameInstance* getInstance();
+class GameInstance : public Instance<GameInstance> {
+    friend class Instance<GameInstance>;
+private:
+    GameInstance() = default;
+    ~GameInstance() = default;
+public:
+    void runGame(sf::RenderWindow& window);
 };

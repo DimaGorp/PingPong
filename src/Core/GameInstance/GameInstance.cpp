@@ -1,26 +1,16 @@
 #include <GameInstance/GameInstance.hpp>
-#include <Window/Window.hpp>
-GameInstance* GameInstance::s_instance = nullptr;
+#include <Controller/Controller.hpp>
 
-GameInstance* GameInstance::getInstance() {
-    if (!s_instance) {
-        s_instance = new GameInstance();
-    }
-    return s_instance;
-}
-
-GameInstance::GameInstance() {
-    m_window = Window::getInstance();
-    runGame();
-}
-void GameInstance::runGame() {
-    while (m_window->isOpen())
-    {
-        while(const std::optional event = m_window->pollEvent()) {
-            if (event->is<sf::Event::Closed>())
-                m_window->close();
+void GameInstance::runGame(sf::RenderWindow& window) {
+    Controller& m_controller = Controller::getInstance();
+    while (window.isOpen()) {
+        while (const std::optional event = window.pollEvent()) {
+            m_controller.handleEvents(*event);
+            if (event->is<sf::Event::Closed>()) {
+                window.close();
+            }
         }
-        m_window->clear();
-        m_window->display();
+        window.clear();
+        window.display();
     }
 }

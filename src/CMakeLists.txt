@@ -1,2 +1,2 @@
 add_subdirectory(Core)
-add_subdirectory(Gameplay)
+add_subdirectory(Game)

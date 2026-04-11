@@ -24,7 +24,7 @@ add_subdirectory(${SOURCE_DIR})
 target_link_libraries(PingPong PRIVATE
     SFML::Graphics
     Core
-    Gameplay
+    Game
 )
 target_include_directories(PingPong PRIVATE
     ${INCLUDE_DIR}

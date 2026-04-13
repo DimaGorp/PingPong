@@ -5,7 +5,7 @@ on:
         branches: 
             - main
             - develop
-            - feature/CoreCmake
+            - feature/*
     pull_request:
         branches:
             - '!main'

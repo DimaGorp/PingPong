@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 project(PingPong)
 
-
-
 set(SOURCE_DIR ${PROJECT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+
 #Game executable
 add_executable(PingPong main.cpp)
 if(CMAKE_VERSION VERSION_LESS "3.20")
@@ -22,8 +21,8 @@ add_subdirectory(${INCLUDE_DIR})
 add_subdirectory(${SOURCE_DIR})
 
 if(CMAKE_VERSION VERSION_LESS "3.11")
-    target_include_directories(Game PRIVATE ${SFML_INCLUDE_DIR})
-    target_link_libraries(Game PRIVATE ${SFML_LIBRARIES} Core Game)
+    target_include_directories(PingPong PRIVATE ${SFML_INCLUDE_DIR})
+    target_link_libraries(PingPong PRIVATE ${SFML_LIBRARIES} Core Game)
 else()
     target_link_libraries(PingPong PRIVATE
         SFML::Graphics

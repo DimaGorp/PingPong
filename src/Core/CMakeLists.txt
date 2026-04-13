@@ -1,7 +1,7 @@
 add_library(Core)
 if(CMAKE_VERSION VERSION_LESS "3.20")
     set_target_properties(Core PROPERTIES
-        CXX_STANDARD 17
+        CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF
     )

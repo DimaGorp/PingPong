@@ -7,7 +7,7 @@ set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 #Game executable
 add_executable(PingPong main.cpp)
 if(CMAKE_VERSION VERSION_LESS "3.20")
-    set(CMAKE_CXX_STANDARD 23)
+    set(CMAKE_CXX_STANDARD 14)
     set(CMAKE_CXX_STANDARD_REQUIRED ON)
     set(CMAKE_CXX_EXTENSIONS OFF)
 else()

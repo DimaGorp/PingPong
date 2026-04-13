@@ -1,14 +1,6 @@
 add_library(Core)
 
-if(CMAKE_VERSION VERSION_LESS "3.20")
-    set_target_properties(Core PROPERTIES
-        CXX_STANDARD 17
-        CXX_STANDARD_REQUIRED ON
-        CXX_EXTENSIONS OFF
-    )
-else()
-    target_compile_features(Core PRIVATE cxx_std_23)
-endif()
+target_compile_features(Core PRIVATE cxx_std_23)
 
 target_sources(Core PRIVATE 
     ${SOURCE_DIR}/Core/GameInstance/GameInstance.cpp
@@ -25,9 +17,4 @@ target_include_directories(Core
     PUBLIC ${INCLUDE_DIR}
 )
 
-if(CMAKE_VERSION VERSION_LESS "3.11")
-    target_include_directories(Core PRIVATE ${SFML_INCLUDE_DIR})
-    target_link_libraries(Core PRIVATE ${SFML_LIBRARIES})
-else()
-    target_link_libraries(Core PRIVATE SFML::Graphics)
-endif()
+target_link_libraries(Core PRIVATE SFML::Graphics)

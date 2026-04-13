@@ -1,6 +1,6 @@
 #include <Core/Movement/Components/MovementComponents.hpp>
 
-void MovementComponent::consumeInput(){
+void MovementComponent::consumeInput() {
     if (m_inputVector.x != 0.f || m_inputVector.y != 0.f) {
         m_owner->setVelocity(m_inputVector.normalized() * m_speed);
     } else {
@@ -8,6 +8,4 @@ void MovementComponent::consumeInput(){
     }
     m_inputVector = {0.f, 0.f};
 }
-void MovementComponent::addMovementInput(const sf::Vector2f& direction) {
-    m_inputVector += direction;
-}
+void MovementComponent::addMovementInput(const sf::Vector2f& direction) { m_inputVector += direction; }

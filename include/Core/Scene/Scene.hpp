@@ -1,20 +1,20 @@
 #pragma once
-#include <vector>
 #include <memory>
+#include <vector>
 namespace sf {
-    class Drawable;
+class Drawable;
 }
 enum class CollisionLayer;
 class Actor;
-class Scene
-{
-private:
+class Scene {
+   private:
     friend class Renderer;
     friend class GameInstance;
     friend class CollisionManager;
     std::vector<std::shared_ptr<Actor>> Actors;
-public:
+
+   public:
     Scene(std::initializer_list<std::shared_ptr<Actor>> actors = {}) : Actors(actors) {}
     ~Scene() = default;
-    std::shared_ptr<Actor> findByLayer(CollisionLayer layer) const ;
+    std::shared_ptr<Actor> findByLayer(CollisionLayer layer) const;
 };

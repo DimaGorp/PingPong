@@ -1,6 +1,6 @@
 #include <Collision/CollisionManager.hpp>
-#include <Scene/Scene.hpp>
 #include <Game/Core/Actor/Actor.hpp>
+#include <Scene/Scene.hpp>
 #include <iostream>
 void CollisionManager::checkCollisions(const Scene& scene) {
     auto actors = scene.Actors;

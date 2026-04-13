@@ -10,6 +10,7 @@ class CollisionManager : public Instance<CollisionManager> {
     friend class Instance<CollisionManager>;
     CollisionManager() = default;
     ~CollisionManager() = default;
-public:
+
+   public:
     void checkCollisions(const Scene& scene);
 };

@@ -1,5 +1,13 @@
 add_library(Core)
-target_compile_features(Core PRIVATE cxx_std_23)
+if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.20")
+    target_compile_features(Core PRIVATE cxx_std_23)
+else()
+    set_target_properties(Core PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+        CXX_EXTENSIONS OFF
+    )
+endif()
 target_sources(Core PRIVATE 
     ${SOURCE_DIR}/Core/GameInstance/GameInstance.cpp
     ${SOURCE_DIR}/Core/Controller/Controller.cpp

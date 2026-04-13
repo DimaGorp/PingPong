@@ -21,11 +21,16 @@ add_subdirectory(ext)
 add_subdirectory(${INCLUDE_DIR})
 add_subdirectory(${SOURCE_DIR})
 
-target_link_libraries(PingPong PRIVATE
-    SFML::Graphics
-    Core
-    Game
-)
+if(CMAKE_VERSION VERSION_LESS "3.11")
+    target_include_directories(Game PRIVATE ${SFML_INCLUDE_DIR})
+    target_link_libraries(Game PRIVATE ${SFML_LIBRARIES} Core Game)
+else()
+    target_link_libraries(PingPong PRIVATE
+        SFML::Graphics
+        Core
+        Game
+    )
+endif()
 target_include_directories(PingPong PRIVATE
     ${INCLUDE_DIR}
 )

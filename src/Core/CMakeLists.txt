@@ -23,4 +23,9 @@ target_include_directories(
     PUBLIC
     ${INCLUDE_DIR}
 )
-target_link_libraries(Core PRIVATE SFML::Graphics)
+if(CMAKE_VERSION VERSION_LESS "3.11")
+    target_include_directories(Core PRIVATE ${SFML_INCLUDE_DIR})
+    target_link_libraries(Core PRIVATE ${SFML_LIBRARIES})
+else()
+    target_link_libraries(Core PRIVATE SFML::Graphics)
+endif()

@@ -5,10 +5,11 @@
 #include <Game/Player/AIPlayer.hpp>
 #include <Game/Player/Player.hpp>
 #include <SFML/Graphics.hpp>
-
+#include <iostream>
 int main() {
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Ping Pong");
-
+    sf::Vector2u winSize = window.getSize();
+    std::cout << winSize.x << "x" << winSize.y << std::endl;
     // Factory function — called on startup and on every game reset
     auto createScene = []() -> Scene {
         return {

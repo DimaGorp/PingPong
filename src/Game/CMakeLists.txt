@@ -1,12 +1,12 @@
 add_library(Game)
-if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.20")
-    target_compile_features(Game PRIVATE cxx_std_23)
-else()
+if(CMAKE_VERSION VERSION_LESS "3.20")
     set_target_properties(Game PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF
     )
+else()
+    target_compile_features(Game PRIVATE cxx_std_23)
 endif()
 target_sources(Game PRIVATE 
     ${SOURCE_DIR}/Game/Ball/Ball.cpp

@@ -1,4 +1,3 @@
-# .github/workflows/format.yml
 name: clang-format
 
 on:
@@ -13,7 +12,11 @@ jobs:
             - name: Install clang-format
               run: sudo apt-get install -y clang-format
 
-            - name: Check formatting
+            - name: Format code
               run: |
-                find . -name "*.cpp" -o -name "*.hpp" | \
-                xargs clang-format --dry-run --Werror
+                find . \( -name "*.cpp" -o -name "*.hpp" \) | \
+                xargs clang-format -i
+
+            - name: Check for changes
+              run: |
+                git diff --exit-code || (echo "Code is not formatted. Run clang-format locally." && exit 1)

@@ -12,9 +12,8 @@ class MovementComponent {
 
     void consumeInput();
 
-public:
-    MovementComponent(Actor* owner, float speed)
-        : m_owner(owner), m_speed(speed), m_inputVector({0.f, 0.f}) {}
+   public:
+    MovementComponent(Actor* owner, float speed) : m_owner(owner), m_speed(speed), m_inputVector({0.f, 0.f}) {}
 
     void addMovementInput(const sf::Vector2f& direction);
 };

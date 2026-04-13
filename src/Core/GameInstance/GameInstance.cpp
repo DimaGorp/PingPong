@@ -1,9 +1,9 @@
-#include <GameInstance/GameInstance.hpp>
+#include <Collision/CollisionManager.hpp>
 #include <Controller/Controller.hpp>
+#include <Game/Core/Actor/Actor.hpp>
+#include <GameInstance/GameInstance.hpp>
 #include <Renderer/Renderer.hpp>
 #include <Scene/Scene.hpp>
-#include <Collision/CollisionManager.hpp>
-#include <Game/Core/Actor/Actor.hpp>
 #include <iostream>
 
 void GameInstance::runGame(sf::RenderWindow& window) {
@@ -28,13 +28,9 @@ void GameInstance::runGame(sf::RenderWindow& window) {
     }
 }
 
-void GameInstance::setScene(const Scene& scene) {
-    m_currentScene = scene;
-}
+void GameInstance::setScene(const Scene& scene) { m_currentScene = scene; }
 
-Scene GameInstance::getScene() {
-    return m_currentScene;
-}
+Scene GameInstance::getScene() { return m_currentScene; }
 
 void GameInstance::resetGame() {
     Controller::getInstance().clearEvents();

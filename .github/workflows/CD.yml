@@ -13,22 +13,14 @@ jobs:
 
     release:
         needs: build
-<<<<<<< HEAD
-=======
         permissions:
             contents: write
->>>>>>> release/relese-1
         strategy:
             fail-fast: false
             matrix:
                 include:
-<<<<<<< HEAD
-                    - name: win64
-                    - name: ubuntu-1804
-=======
                     - name: win32
                     - name: win64
->>>>>>> release/relese-1
 
         runs-on: ubuntu-latest
         name: Release (${{ matrix.name }})

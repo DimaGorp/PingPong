@@ -17,8 +17,8 @@ jobs:
             fail-fast: false
             matrix:
                 include:
+                    - name: win32
                     - name: win64
-                    - name: ubuntu-1804
 
         runs-on: ubuntu-latest
         name: Release (${{ matrix.name }})

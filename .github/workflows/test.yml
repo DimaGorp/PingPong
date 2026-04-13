@@ -19,16 +19,6 @@ jobs:
                       arch: x64
                       name: win64
 
-                    # Ubuntu 16.04 x64 
-                    - os: ubuntu-latest
-                      container: ubuntu:16.04
-                      name: ubuntu-1604
-
-                    # Ubuntu 18.04 x64 
-                    - os: ubuntu-latest
-                      container: ubuntu:18.04
-                      name: ubuntu-1804
-
         runs-on: ${{ matrix.os }}
         name: Unit Tests (${{ matrix.name }})
         steps:
@@ -43,16 +33,3 @@ jobs:
               run: |
                 cd build
                 ctest --output-on-failure -C Release
-
-            - name: Run unit tests (Linux)
-              if: runner.os == 'Linux'
-              run: |
-                  docker run --rm \
-                    -v ${{ github.workspace }}/build:/build \
-                    -w /build \
-                    ${{ matrix.container }} \
-                    bash -c "
-                        apt-get update -qq &&
-                        apt-get install -y cmake &&
-                        ctest --output-on-failure
-                    "

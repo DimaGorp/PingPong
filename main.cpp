@@ -5,59 +5,70 @@
 #include <Game/Player/AIPlayer.hpp>
 #include <Game/Player/Player.hpp>
 #include <SFML/Graphics.hpp>
+
 int main() {
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Ping Pong");
+
+    // Factory function — called on startup and on every game reset
     auto createScene = []() -> Scene {
-        return {// Borders
-                Actor::create()
-                    ->setShape(sf::RectangleShape({25.f, 300.f}))
-                    ->setActorLocation({0.f, 0.f})
-                    ->setCollisionLayer(CollisionLayer::Border),
-                Actor::create()
-                    ->setShape(sf::RectangleShape({25.f, 300.f}))
-                    ->setActorLocation({0.f, 500.f})
-                    ->setCollisionLayer(CollisionLayer::Border),
-                Actor::create()
-                    ->setShape(sf::RectangleShape({25.f, 300.f}))
-                    ->setActorLocation({1415.f, 0.f})
-                    ->setCollisionLayer(CollisionLayer::Border),
-                Actor::create()
-                    ->setShape(sf::RectangleShape({25.f, 300.f}))
-                    ->setActorLocation({1415.f, 500.f})
-                    ->setCollisionLayer(CollisionLayer::Border),
-                Actor::create()
-                    ->setShape(sf::RectangleShape({1415.f, 25.f}))
-                    ->setActorLocation({25.f, 0.f})
-                    ->setCollisionLayer(CollisionLayer::Border),
-                Actor::create()
-                    ->setShape(sf::RectangleShape({1415.f, 25.f}))
-                    ->setActorLocation({25.f, 770.f})
-                    ->setCollisionLayer(CollisionLayer::Border),
-                // Goals
-                Actor::create()
-                    ->setShape(sf::RectangleShape({25.f, 200.f}))
-                    ->setColor(sf::Color::Blue)
-                    ->setActorLocation({0.f, 300.f})
-                    ->setCollisionLayer(CollisionLayer::Goal),
-                Actor::create()
-                    ->setShape(sf::RectangleShape({25.f, 200.f}))
-                    ->setColor(sf::Color::Blue)
-                    ->setActorLocation({1415.f, 300.f})
-                    ->setCollisionLayer(CollisionLayer::Goal),
-                // Players
-                Actor::create<Player>()
-                    ->init()
-                    ->setActorLocation({100.f, 300.f})
-                    ->setCollisionLayer(CollisionLayer::Player),
-                Actor::create<AIPlayer>()
-                    ->setDeadZone(40.f)
-                    ->setErrorRange(80.f)
-                    ->setReactionDelay(0.6f)
-                    ->setActorLocation({1300.f, 300.f})
-                    ->setCollisionLayer(CollisionLayer::Player),
-                // Ball
-                Actor::create<Ball>()->setActorLocation({150.f, 300.f})->setCollisionLayer(CollisionLayer::Ball)};
+        return {
+            // Borders — top-left, bottom-left, top-right, bottom-right corners + top/bottom walls
+            Actor::create()
+                ->setShape(sf::RectangleShape({25.f, 300.f}))
+                ->setActorLocation({0.f, 0.f})
+                ->setCollisionLayer(CollisionLayer::Border),
+            Actor::create()
+                ->setShape(sf::RectangleShape({25.f, 300.f}))
+                ->setActorLocation({0.f, 500.f})
+                ->setCollisionLayer(CollisionLayer::Border),
+            Actor::create()
+                ->setShape(sf::RectangleShape({25.f, 300.f}))
+                ->setActorLocation({1415.f, 0.f})
+                ->setCollisionLayer(CollisionLayer::Border),
+            Actor::create()
+                ->setShape(sf::RectangleShape({25.f, 300.f}))
+                ->setActorLocation({1415.f, 500.f})
+                ->setCollisionLayer(CollisionLayer::Border),
+            Actor::create()
+                ->setShape(sf::RectangleShape({1415.f, 25.f}))
+                ->setActorLocation({25.f, 0.f})
+                ->setCollisionLayer(CollisionLayer::Border),
+            Actor::create()
+                ->setShape(sf::RectangleShape({1415.f, 25.f}))
+                ->setActorLocation({25.f, 770.f})
+                ->setCollisionLayer(CollisionLayer::Border),
+
+            // Goals — left and right scoring zones
+            Actor::create()
+                ->setShape(sf::RectangleShape({25.f, 200.f}))
+                ->setColor(sf::Color::Blue)
+                ->setActorLocation({0.f, 300.f})
+                ->setCollisionLayer(CollisionLayer::Goal),
+            Actor::create()
+                ->setShape(sf::RectangleShape({25.f, 200.f}))
+                ->setColor(sf::Color::Blue)
+                ->setActorLocation({1415.f, 300.f})
+                ->setCollisionLayer(CollisionLayer::Goal),
+
+            // Players — human on the left, AI on the right
+            Actor::create<Player>()
+                ->init()
+                ->setActorLocation({100.f, 300.f})
+                ->setCollisionLayer(CollisionLayer::Player),
+            Actor::create<AIPlayer>()
+                ->setDeadZone(40.f)
+                ->setErrorRange(80.f)
+                ->setReactionDelay(0.6f)
+                ->setActorLocation({1300.f, 300.f})
+                ->setCollisionLayer(CollisionLayer::Player),
+
+            // Ball — starts on the left side
+            Actor::create<Ball>()
+                ->setActorLocation({150.f, 300.f})
+                ->setCollisionLayer(CollisionLayer::Ball),
+        };
     };
+
     GameInstance& game = GameInstance::getInstance();
     game.setSceneFactory(createScene);
     game.runGame(window);

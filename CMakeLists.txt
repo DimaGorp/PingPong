@@ -30,4 +30,3 @@ target_include_directories(PingPong PRIVATE
     ${INCLUDE_DIR}
 )
 
-

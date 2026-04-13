@@ -12,8 +12,9 @@ class Controller: public Instance<Controller>{
         Controller() = default;
         ~Controller() = default;
         void handleEvents(const sf::Event& event);
+        void clearEvents() { eventQueue.clear(); }
     protected:
-       using EventKey = std::pair<std::type_index, int>;
+        using EventKey = std::pair<std::type_index, int>;
         static EventKey makeKey(const sf::Event& event) {
             return event.visit([](const auto& e) -> EventKey {
                 std::type_index type = typeid(e);
@@ -26,15 +27,17 @@ class Controller: public Instance<Controller>{
     public:
         template<class T = Actor>
         void bindEvent(
-            T* object,
+            std::shared_ptr<T> object,
             void(T::*method)(const int&),
             sf::Event trigger
         )
         {
+            std::weak_ptr<T> weak = object;
             eventQueue.insert({
                 makeKey(trigger),
-                [object, method](const int& val) {
-                    (object->*method)(val);
+                [weak, method](const int& val) {
+                    if (auto obj = weak.lock())
+                        (obj.get()->*method)(val);
                 }
             });
         }

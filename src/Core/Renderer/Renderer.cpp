@@ -1,7 +1,7 @@
 #include <Renderer/Renderer.hpp>
 #include <Scene/Scene.hpp>
 #include <SFML/Graphics.hpp>
-#include <Game/Actor/Actor.hpp>
+#include <Game/Core/Actor/Actor.hpp>
 void Renderer::render(sf::RenderWindow& window, const Scene& scene) {
     window.clear();
     for (auto& actor : scene.Actors) {

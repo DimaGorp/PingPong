@@ -17,9 +17,9 @@ class AIPlayer : public Pawn {
     std::shared_ptr<AIPlayer> setDeadZone(float deadZone);
 
    private:
-    float m_reactionDelay = 0.4f;   // How often the AI updates its target (seconds)
-    float m_errorRange = 30.f;      // Max random error added to target Y position
-    float m_deadZone = 20.f;        // AI won't move if closer than this to the target
-    float m_reactionTimer = 0.f;    // Tracks time since last target update
-    float m_targetY = 0.f;          // Current target Y position to move toward
+    float m_reactionDelay = 0.4f;  // How often the AI updates its target (seconds)
+    float m_errorRange = 30.f;     // Max random error added to target Y position
+    float m_deadZone = 20.f;       // AI won't move if closer than this to the target
+    float m_reactionTimer = 0.f;   // Tracks time since last target update
+    float m_targetY = 0.f;         // Current target Y position to move toward
 };

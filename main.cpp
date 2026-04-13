@@ -63,9 +63,7 @@ int main() {
                 ->setCollisionLayer(CollisionLayer::Player),
 
             // Ball — starts on the left side
-            Actor::create<Ball>()
-                ->setActorLocation({150.f, 300.f})
-                ->setCollisionLayer(CollisionLayer::Ball),
+            Actor::create<Ball>()->setActorLocation({150.f, 300.f})->setCollisionLayer(CollisionLayer::Ball),
         };
     };
 

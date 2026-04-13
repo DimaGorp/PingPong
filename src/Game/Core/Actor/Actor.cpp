@@ -22,9 +22,7 @@ sf::FloatRect Actor::getBounds() const {
 }
 
 // Returns true if the bounding boxes of both actors overlap
-bool Actor::intersects(const Actor& other) const {
-    return getBounds().findIntersection(other.getBounds()).has_value();
-}
+bool Actor::intersects(const Actor& other) const { return getBounds().findIntersection(other.getBounds()).has_value(); }
 
 // Restores position to where the actor was in the previous frame
 void Actor::revertLocation() {

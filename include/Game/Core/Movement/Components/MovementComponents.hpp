@@ -8,8 +8,8 @@ class Pawn;
 class MovementComponent {
     friend class Pawn;
 
-    Actor* m_owner;          // Raw pointer — does not own the actor
-    float m_speed;           // Movement speed in pixels per second
+    Actor* m_owner;              // Raw pointer — does not own the actor
+    float m_speed;               // Movement speed in pixels per second
     sf::Vector2f m_inputVector;  // Accumulated input direction for the current frame
 
     // Applies accumulated input as velocity and resets it

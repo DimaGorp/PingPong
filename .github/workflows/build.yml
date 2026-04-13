@@ -29,9 +29,13 @@ jobs:
                   cmake -B build -A ${{ matrix.arch }}
                   cmake --build build --config Release
 
+            - name: Archive artifacts (Windows)
+              if: runner.os == 'Windows'
+              run: Compress-Archive -Path build/Release/* -DestinationPath build/release-${{ matrix.name }}.zip
+
             - name: Upload artifacts (Windows)
               if: runner.os == 'Windows'
               uses: actions/upload-artifact@v4
               with:
                 name: build-${{ matrix.name }}
-                path: build/Release
+                path: build/release-${{ matrix.name }}.zip

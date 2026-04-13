@@ -1,0 +1,39 @@
+name: CD
+
+on:
+    workflow_dispatch:
+        inputs:
+            version:
+                description: 'Release version (e.g. v1.0.0)'
+                required: true
+
+jobs:
+    build:
+        uses: ./.github/workflows/build.yml
+
+    release:
+        needs: build
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - name: win64
+                    - name: ubuntu-1804
+
+        runs-on: ubuntu-latest
+        name: Release (${{ matrix.name }})
+        steps:
+            - name: Download artifacts
+              uses: actions/download-artifact@v4
+              with:
+                name: build-${{ matrix.name }}
+                path: release
+
+            - name: Upload to GitHub Release
+              uses: softprops/action-gh-release@v1
+              with:
+                tag_name: ${{ github.event.inputs.version }}
+                name: Release ${{ github.event.inputs.version }}
+                files: release/*
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
